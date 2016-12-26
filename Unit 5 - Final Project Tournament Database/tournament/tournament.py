@@ -5,22 +5,49 @@
 
 import psycopg2
 
+tournament = 1
 
 def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
-    return psycopg2.connect("dbname=tournament")
+    return psycopg2.connect("dbname=tournament user='postgres' host='localhost' password='root'")
 
 
 def deleteMatches():
     """Remove all the match records from the database."""
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM matches")
+    cur.execute("DELETE FROM rounds")
+    conn.commit()
+    conn.close()
 
 
 def deletePlayers():
     """Remove all the player records from the database."""
-
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM players")
+    conn.commit()
+    conn.close()
 
 def countPlayers():
-    """Returns the number of players currently registered."""
+    """Returns the number of players currently registered.""" 
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("""select count(*) as cant_players from \
+        ( \
+        select players.idplayer from matches \
+        join players on matches.idplayer1 = players.idplayer or matches.idplayer2 = players.idplayer \
+        where matches.idround in ( select rounds.idround from rounds where idtournament = %s) \
+        group by players.idplayer \
+        order by players.idplayer \
+    ) as players_registered; 
+    """, (tournament,))
+    # getting the number of players
+    data = cur.fetchall()
+    data = int(data[0][0])
+    conn.close()
+    return data
 
 
 def registerPlayer(name):
@@ -32,6 +59,13 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
+    conn = connect()
+    cur = conn.cursor()
+    # default nationality is dominican
+    nationality = "dom"
+    cur.execute("INSERT INTO PLAYERS(name, nationality) VALUES (%s, %s)", (name, nationality))
+    conn.commit()
+    conn.close()
 
 
 def playerStandings():
@@ -47,6 +81,23 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
+    conn = connect()
+    cur = conn.cursor()
+    query = """select p1.idplayer, p1.name, count(matches.winner) as cant_wins, max(games_played.cant_played) as cant_played from matches \
+    right join players p1 on p1.idplayer = matches.winner \
+    join (
+        select players.idplayer, players.name, count(matches.idplayer1) as  cant_played  from matches \
+        right join players on players.idplayer = matches.idplayer1 or players.idplayer = matches.idplayer2 \
+        group by players.idplayer \
+        order by players.idplayer \
+         ) as games_played on p1.idplayer = games_played.idplayer \
+    group by p1.idplayer \
+    order by p1.idplayer; 
+    """
+    cur.execute(query)
+    data = cur.fetchall()
+    return data
+    conn.close()
 
 
 def reportMatch(winner, loser):
@@ -73,5 +124,7 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+print countPlayers()
+
 
 
