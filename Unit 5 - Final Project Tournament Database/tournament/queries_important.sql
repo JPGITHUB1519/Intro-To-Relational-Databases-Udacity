@@ -1,10 +1,17 @@
-'Getting the id of all players registered in all tournament'
+
+'Getting players registered in a tournament'
+select * from tournaments_vs_players where idtournament = 1; 
+
+'Getting players registered in all tournament'
+select * from tournaments_vs_players 
+
+'Getting the id of all players that played in all tournament'
 select players.idplayer from matches
 join players on matches.idplayer1 = players.idplayer or matches.idplayer2 = players.idplayer
 group by players.idplayer
 order by players.idplayer
 
-'Getting the id of all players registered in one tournament'
+'Getting the id of all players that played in rounds in one tournament'
 select players.idplayer from matches
 join players on matches.idplayer1 = players.idplayer or matches.idplayer2 = players.idplayer
 where matches.idround in ( select rounds.idround from rounds where idtournament = 1)
