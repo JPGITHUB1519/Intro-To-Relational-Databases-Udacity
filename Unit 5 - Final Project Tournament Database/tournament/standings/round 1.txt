@@ -1,0 +1,34 @@
+Round 1
+
+					wins			loose
+1 Magnus			1
+
+2 Fabiano			0	
+
+3 Vladimir			0
+
+4 Maxime			1
+
+5 Wesley			0
+
+6 Sergey			1
+
+7 Levon				0	
+
+8 Viswanathan		1
+
+9 Hikaru			1
+
+10 Anish			0
+
+11 Pendyala			1
+
+12 Shakhriyar		0
+
+13 Ian				1
+
+14 Pavel			0
+
+15 Veselin			0
+
+16 Liren			1

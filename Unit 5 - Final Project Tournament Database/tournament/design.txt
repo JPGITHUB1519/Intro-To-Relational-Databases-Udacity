@@ -1,0 +1,9 @@
+ejemplo
+
+16 jugadores -> 4 rondas  32 -> jugadas
+
+cantidad_rondas = log2 = log n / log 2
+
+cantidad_partidos = (cant_jugadores / 2) * cant_rondas
+
+cantidad_partidos por ronda = cant_partidas / cant_rondas
