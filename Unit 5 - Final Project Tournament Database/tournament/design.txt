@@ -7,3 +7,35 @@ cantidad_rondas = log2 = log n / log 2
 cantidad_partidos = (cant_jugadores / 2) * cant_rondas
 
 cantidad_partidos por ronda = cant_partidas / cant_rondas
+
+swiss pairing
+-> get the standing actual of the tournament
+-> Orderby wins
+-> pasa de dos mostrar cada cada tourneo de manera irregular
+----------------------------****************-------------------****************----------------*****************------
+
+PAIRING NUMBER
+
+p1  2
+p2 	2
+p3  2
+p4  2
+p5  1
+p6  1
+p7  0
+p8  0
+
+ordenar ascendente
+
+for x in range(0, len(data)/2 + 1)
+	match1 = (p1, p2)
+	match2 = (p3, p4)
+	match3 = (p5, p6)
+	match4 = (p7, p8)
+
+segunda opcion :
+	Mostrar offset de a dos columns
+	data = []
+	While cont <= cant_rows / 2 :
+		data += select * from players offset 0 limit 2
+	offeset = offset + 2

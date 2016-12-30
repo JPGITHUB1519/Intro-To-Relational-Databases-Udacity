@@ -42,18 +42,34 @@ def registerPlayerToTournament(idplayer, idtournament):
     conn.commit()
     conn.close()
 
-def registerRoundToTournament(idtournament, date):
+def registerRoundToTournament(idtournament, round_number):
     """ Add a match to a specified Tournament
         
         Args:
             idtournament : the id of the tournament to register the match
+            round_number : the number of the round\ of the tournament
     """
     conn = connect()
     cur = conn.cursor()
-    cur.execute("INSERT INTO rounds(")
+    cur.execute("INSERT INTO rounds(idtournament, date, round_number) VALUES(%s, current_date, %s)", (idtournament, round_number))
+    conn.commit()
+    conn.close()
+
+def appendRoundToTournament(idtournament):
+    """ Append a new round to the tournament
+
+        Args :
+            round_number = max(round_number) + 1
+            idtournament : the id of the tournament to register the round
+    """
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO rounds(idtournament, date, round_number) VALUES(%s, current_date, (select max(round_number) from rounds where idtournament = %s) + 1);", (idtournament, idtournament))
+    conn.commit()
+    cur.close()
 
 def registerMatchToRound(idround, idplayer1, idplayer2):
-    """ Add a match to a round and his player 
+    """ Add a match to a round and his players
         
         Args :
             idround : the round to add the match
@@ -69,8 +85,7 @@ def registerMatchToRound(idround, idplayer1, idplayer2):
             """
     conn = connect()
     cur = conn.cursor()
-    round_number = "SELECT MAX(round_number) from rounds where idtournament"
-    cur.execute("INSERT INTO matches(idround, idplayer1, idplayer2, date) values(%s, %s, %s)", (idround, idplayer1, idplayer2,))
+    cur.execute("INSERT INTO matches(idround, idplayer1, idplayer2, date) values(%s, %s, %s, current_date)", (idround, idplayer1, idplayer2,))
     conn.commit()
     conn.close()
     #faltaaaaaaaa
@@ -247,18 +262,20 @@ def playerStandings():
     return data
     conn.close()
 
-
-
-def reportMatch(winner, loser):
+def reportMatch(winner, looser, idmatch):
     """Records the outcome of a single match between two players in a specefied round.
-
     Args:
-      winner:  the id number of the player who won
-      loser:  the id number of the player who lost
+        winner:  the id number of the player who won
+        looser:  the id number of the player who lost
+        idmatch : the id of the tournament where the players are
     """
- 
- 
-def swissPairings():
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("UPDATE matches SET winner = %s, looser = %s WHERE idmatch = %s", (winner, looser, idmatch))
+    conn.commit()
+    conn.close()
+
+def swissPairings(idtournament):
     """Returns a list of pairs of players for the next round of a match.
   
     Assuming that there are an even number of players registered, each player
@@ -272,4 +289,9 @@ def swissPairings():
         name1: the first player's name
         id2: the second player's unique id
         name2: the second player's name
+
+    Args :
+        idtournament : The tournament to make the pairing
     """
+    pass
+

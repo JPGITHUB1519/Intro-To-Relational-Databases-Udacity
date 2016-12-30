@@ -58,13 +58,27 @@ right join players p1 on p1.idplayer = matches.winner
 group by p1.idplayer
 order by p1.idplayer;
 
-'getting cants of games played by players'
-select players.idplayer, players.name, count(matches.idplayer1) from matches
+'Getting the cant of games played in a specified tournament'
+select players.idplayer, players.name, count(matches.idplayer1) as  cant_played  from matches
 right join players on players.idplayer = matches.idplayer1 or players.idplayer = matches.idplayer2
+where matches.idround in ( select rounds.idround from rounds where idtournament = 1)
+group by players.idplayer
+order by players.idplayer
+
+'Getting the cant of wins of each player in all tournaments'
+select players.idplayer, players.name, count(matches.winner) as cant_wins from matches
+right join players players on players.idplayer = matches.winner
 group by players.idplayer
 order by players.idplayer;
 
-'Getting the name of players, the id the cants of wins and the cant of games played'
+'getting the cant of wins of each player in a specified tournament'
+-- select p1.idplayer, p1.name, count(matches.winner) as cant_wins from matches
+-- right join players p1 on p1.idplayer = matches.winner
+-- where matches.idround in(select idround from rounds where idtournament = 1)
+-- group by p1.idplayer
+-- order by p1.idplayer;
+
+'Getting the name of players, the id the cants of wins and the cant of games played of all Tournaments'
 select p1.idplayer, p1.name, count(matches.winner) as cant_wins, max(games_played.cant_played) as cant_played from matches
 right join players p1 on p1.idplayer = matches.winner
 join (
@@ -75,4 +89,5 @@ join (
      ) as games_played on p1.idplayer = games_played.idplayer
 group by p1.idplayer
 order by p1.idplayer;
+
 
