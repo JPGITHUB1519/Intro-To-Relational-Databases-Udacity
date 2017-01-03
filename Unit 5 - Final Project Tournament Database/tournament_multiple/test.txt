@@ -1,0 +1,64 @@
+16 jugadores -> 4 rondas  32 -> jugadas
+8 jugadas por ronda
+
+1 era Ronda
+
+	1- Magnus 1  vs Fabiano 2 -> wins magnus 1
+	2- Vladimir 3 vs Maxime 4 -> wins maxime 4
+	3- Wesley 5 vs Sergey 6 -> wins sergey 6
+	4- Levon 7 vs Viswanathan 8 -> wins viswanathan 8
+	5- Hikaru 9 vs Anish 10 -> wins hikaru 9 
+	6- Pendyala 11 vs Shakhriyar 12 -> wins pendyala 11
+	7- Ian 13 vs Pavel 14  -> wins ian 13
+	8- Veselin 15 vs Liren 16 -> wins Liren 16
+
+	Winners
+
+		magnus 1
+		maxime 4
+		sergey 6
+		viswanathan 8
+		hikaru 9
+		pendyala 11
+		ian 13
+		liren 16
+
+	Loosers
+
+		fabiano 2
+		vladimir 3
+		wesley 5
+		levon 7
+		anish 10
+		shakriyar 12
+		pavel 14
+		veselin 15
+
+2da Ronda
+
+	winners fights
+		9- magnus 1 vs maxime 4 -> wins magnus 1
+		10- sergey 6 vs viswanathan 8 -> wins viswanathan 8
+		11- hikaru 9 vs pendyala 11 -> wins hikaru 9
+		12- ian 13 vs liren 16 -> wins liren 16
+
+	looser fights
+		13- fabiano 2 vs vladimir 3 -> wins fabiano 2
+		14- wesley 5 vs levon 7 -> wins wesley 5
+		15- anish 10 vs shakriyar 12 -> wins anish 10
+		16- pavel 14 vs veselin 15 -> wins veselin 15
+
+	winners
+		magnus 1
+		viswanathan 8
+		hikaru 9
+		liren 16
+
+	Loosers
+		fabiano 2
+		wesley 5
+		anish 10
+		veselin 15
+
+	Standings
+

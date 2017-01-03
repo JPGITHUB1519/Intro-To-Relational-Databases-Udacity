@@ -15,15 +15,16 @@ def deleteMatches():
     """Remove all the match records from the database."""
     conn = connect()
     cur = conn.cursor()
-    cur.execute("DELETE  FROM matches")
-    conn.close()
-
+    cur.execute("DELETE FROM matches")
+    cur.execute("DELETE FROM rounds")
+    conn.commit()
 
 def deletePlayers():
     """Remove all the player records from the database."""
     conn = connect()
     cur = conn.cursor()
-    cur.execute("DELETE  FROM players")
+    cur.execute("DELETE FROM players")
+    conn.commit()
     conn.close()
 
 
@@ -50,7 +51,7 @@ def registerPlayer(name):
     cur = conn.cursor()
     # default nationality is dominican
     nationality = "dom"
-    cur.execute("INSERT INTO PLAYERS(name) VALUES (%s)", (name))
+    cur.execute("INSERT INTO PLAYERS(name, nationality) VALUES (%s, %s)", (name, nationality))
     conn.commit()
     conn.close()
 
